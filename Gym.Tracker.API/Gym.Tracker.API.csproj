@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gym.Tracker.Common\Gym.Tracker.Common.csproj" />
     <ProjectReference Include="..\Gym.Tracker.Core\Gym.Tracker.Core.csproj" />
   </ItemGroup>
 

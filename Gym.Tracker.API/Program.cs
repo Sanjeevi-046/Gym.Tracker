@@ -1,9 +1,15 @@
+using Asp.Versioning.ApiExplorer;
 using Auth.Learn.Common.Extensions;
-using Scalar.AspNetCore;
-using System;
+using Gym.Tracker.Core.Extensions;
+using Gym.Tracker.Data.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+IWebHostEnvironment environment = builder.Environment;
+var configuration = new ConfigurationBuilder()
+                                      .AddJsonFile(environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json")
+                                      .Build();
 
 //Enable CORS
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
@@ -12,46 +18,41 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 }));
-// Add services to the container.
 
+// Add services to the container.
 builder.Services.AddControllers();
 
+// Business service collection extension
+builder.Services.AddServiceConnector();
+
+//Register Versioning
 builder.Services.RegisterApiVersioningServices();
 
 //Register Swagger
 builder.Services.RegisterSwaggerAuthorization("Gym.Tracker.Api.xml");
 
-//Add OpenAPI
-//builder.Services.AddOpenApi();
+// Register DbContext with connection string
+builder.Services.AddDataConnector(configuration);
 
 builder.Services.AddRouting();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.MapOpenApi();
 
-    app.UseSwaggerUI(swagger =>
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+    app.UseSwaggerUI(c =>
     {
-        swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "Gym Tracker API V1");
-        swagger.SwaggerEndpoint("/swagger/v2/swagger.json", "Gym Tracker API V2");
-    });
+        foreach (var desc in provider.ApiVersionDescriptions)
+        {
+            c.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json",$"Gym Tracker {desc.GroupName}");
+        }
+    });}
 
-    //string[] versions = ["v1", "v2"];
-    //app.MapScalarApiReference(options =>
-    //{
-    //    options.AddDocuments(versions.Select(version => new ScalarDocument(version, $"Gym Tracker API {version}")));
-    //    options.WithTitle("Scalar API");
-    //    options.WithTheme(ScalarTheme.Solarized);
-    //    options.WithDownloadButton(true);
-    //});
-
-}
-
-app.UseCors(x => x
-               .AllowAnyMethod()
+app.UseCors(x => x.AllowAnyMethod()
                .AllowAnyHeader()
                .SetIsOriginAllowed(origin => true) // allow any origin
                .AllowCredentials());

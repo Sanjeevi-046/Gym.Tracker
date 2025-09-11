@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Tracker.Common", "Gym.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Tracker.Core", "Gym.Tracker.Core\Gym.Tracker.Core.csproj", "{ED17B21A-6063-9B45-01B8-A669483A41A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Tracker.Data", "Gym.Tracker.Data\Gym.Tracker.Data.csproj", "{7AE74F14-0C62-43F7-81F0-A42E64210DF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ED17B21A-6063-9B45-01B8-A669483A41A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED17B21A-6063-9B45-01B8-A669483A41A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED17B21A-6063-9B45-01B8-A669483A41A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE74F14-0C62-43F7-81F0-A42E64210DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE74F14-0C62-43F7-81F0-A42E64210DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE74F14-0C62-43F7-81F0-A42E64210DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE74F14-0C62-43F7-81F0-A42E64210DF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
