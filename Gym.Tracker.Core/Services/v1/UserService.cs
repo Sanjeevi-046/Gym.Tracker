@@ -47,7 +47,7 @@ namespace Gym.Tracker.Core.Services.v1
             var existingUser = await _context.Users.FirstOrDefaultAsync(_ => _.Email.Equals(email));
             if (existingUser == null) 
             {
-                return new UserVerificationResult { IsNewUser=true};
+                return new UserVerificationResult { IsNewUser = true};
             }
             bool isValidPassword = VerifyPassword(password, existingUser.Password);
             return new UserVerificationResult { IsExistingUser = true , IsPasswordInvalid = isValidPassword};
