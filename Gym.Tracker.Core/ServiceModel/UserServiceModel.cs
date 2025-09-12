@@ -50,10 +50,11 @@ namespace Gym.Tracker.Core.ServiceModel
         [Required(ErrorMessage =RequiredErrorMessages.LastNameRequired)]
         public string? LastName { get; set; }
         
-
         [Required(ErrorMessage = RequiredErrorMessages.EmailRequired)]
         [RegularExpression(RegularExpressionConstants.Email,ErrorMessage = ValidationMessageKeys.InvalidEmail)]
         public string Email { get; set; } = null!;
+        [RegularExpression(RegularExpressionConstants.Password, ErrorMessage = ValidationMessageKeys.InvalidPassword)]
+        public string Password { get; set; } = null!;
 
         [Phone(ErrorMessage = "Invalid phone number format")]
         [StringLength(20, ErrorMessage = "Phone number cannot be longer than 20 characters")]
@@ -66,7 +67,7 @@ namespace Gym.Tracker.Core.ServiceModel
         public long? BillingTermsId { get; set; }
         public long? PaymentMethodId { get; set; }
         public long? Nationality { get; set; }
-        public long? RoleId { get; set; } = null!;
+        public long RoleId { get; set; } 
         public bool? IsTerminated { get; set; }
         public bool? IsUserLocked { get; set; }
         public bool? IsForcePwdChange { get; set; }
