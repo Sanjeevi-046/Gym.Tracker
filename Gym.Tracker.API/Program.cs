@@ -1,5 +1,6 @@
 using Asp.Versioning.ApiExplorer;
 using Auth.Learn.Common.Extensions;
+using Gym.Tracker.Common.Helper;
 using Gym.Tracker.Core.Extensions;
 using Gym.Tracker.Data.Extensions;
 
@@ -60,7 +61,9 @@ app.UseCors(x => x.AllowAnyMethod()
 app.UseRouting();
 app.UseHttpsRedirection();
 
+
 app.UseAuthorization();
+app.UseMiddleware<ErrorHandler>();
 
 app.MapControllers();
 
