@@ -1,5 +1,6 @@
 using Asp.Versioning.ApiExplorer;
-using Auth.Learn.Common.Extensions;
+using Gym.Tracker.Common.Extensions;
+using Gym.Tracker.Common.KeyVault;
 using Gym.Tracker.Common.Helper;
 using Gym.Tracker.Core.Extensions;
 using Gym.Tracker.Data.Extensions;
@@ -35,6 +36,9 @@ builder.Services.RegisterSwaggerAuthorization("Gym.Tracker.Api.xml");
 // Register DbContext with connection string
 builder.Services.AddDataConnector(configuration);
 
+// Register Authentication
+builder.Services.AddAuthenticationConnector(configuration);
+
 builder.Services.AddRouting();
 
 var app = builder.Build();
@@ -60,11 +64,8 @@ app.UseCors(x => x.AllowAnyMethod()
 
 app.UseRouting();
 app.UseHttpsRedirection();
-
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ErrorHandler>();
-
 app.MapControllers();
-
 app.Run();
