@@ -1,6 +1,5 @@
 using Asp.Versioning.ApiExplorer;
 using Gym.Tracker.Common.Extensions;
-using Gym.Tracker.Common.KeyVault;
 using Gym.Tracker.Common.Helper;
 using Gym.Tracker.Core.Extensions;
 using Gym.Tracker.Data.Extensions;

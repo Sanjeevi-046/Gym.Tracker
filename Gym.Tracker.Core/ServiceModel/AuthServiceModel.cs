@@ -32,6 +32,4 @@ namespace Gym.Tracker.Core.ServiceModel
         public string AccessToken { get; set; } = string.Empty;
         public string RefeshToken { get; set; } = string.Empty; 
     }
-    {
-    }
 }

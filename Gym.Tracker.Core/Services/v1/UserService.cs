@@ -1,7 +1,7 @@
-﻿using Gym.Tracker.Core.ServiceModel;
+﻿using Gym.Tracker.Core.Security;
+using Gym.Tracker.Core.ServiceModel;
 using Gym.Tracker.Data.Context;
 using Gym.Tracker.Data.Entities;
-using Gym.Tracker.Security;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
