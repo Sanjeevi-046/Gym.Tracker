@@ -126,5 +126,29 @@ namespace Gym.Tracker.Core.Services.v1
             await _context.SaveChangesAsync();
             return newUser;
         }
+
+        /// <summary>
+        /// Retrieves all user roles from the <c>RoleTypes</c> table.
+        /// </summary>
+        /// <remarks>
+        /// This method queries the database asynchronously using Entity Framework Core.
+        /// It projects the records from the <c>RoleTypes</c> table into the 
+        /// <see cref="UserRoleResult"/> service model.
+        /// </remarks>
+        /// <returns>
+        /// A task that represents the asynchronous operation. 
+        /// The task result contains a list of <see cref="UserRoleResult"/> objects 
+        /// with Id, RoleCode, and RoleName populated from the database.
+        /// </returns>
+        public async Task<List<UserRoleResult>>GetUserRoles()
+        { 
+            var roles = await _context.RoleTypes.Select(r => new UserRoleResult
+            {
+                Id = r.Id,
+                RoleCode = r.RoleCode,
+                RoleName = r.RoleName
+            }).ToListAsync();
+            return roles;
+        }
     }
 }

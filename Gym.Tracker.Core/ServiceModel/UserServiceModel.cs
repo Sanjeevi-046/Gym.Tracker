@@ -84,4 +84,12 @@ namespace Gym.Tracker.Core.ServiceModel
         public bool IsExistingUser { get; set; } = false;
         public bool IsPasswordInvalid { get; set; } = false;
     }
+
+    [ExcludeFromCodeCoverage]
+    public class UserRoleResult
+    {
+        public long Id { get; set; }
+        public int RoleCode { get; set; }
+        public string RoleName { get; set; }
+    }
 }
