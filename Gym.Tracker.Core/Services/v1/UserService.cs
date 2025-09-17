@@ -42,7 +42,13 @@ namespace Gym.Tracker.Core.Services.v1
             return PasswordHasher.VerifyPassword(password, passwordBytes);           
         }
 
-        private async  Task<UserVerificationResult> IsExistingUser (string email , string password)
+        /// <summary>
+        /// To verify the existing user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async  Task<UserVerificationResult> IsExistingUser (string email , string password)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(_ => _.Email.Equals(email));
             if (existingUser == null) 
@@ -126,6 +132,7 @@ namespace Gym.Tracker.Core.Services.v1
             await _context.SaveChangesAsync();
             return newUser;
         }
+
 
         /// <summary>
         /// Retrieves all user roles from the <c>RoleTypes</c> table.

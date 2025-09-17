@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Auth.Learn.Common.Extensions
+namespace Gym.Tracker.Common.Extensions
 {
     public static class ApiVersionExtension
     {

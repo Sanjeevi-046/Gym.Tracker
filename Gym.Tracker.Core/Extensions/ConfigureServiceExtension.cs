@@ -11,6 +11,7 @@ namespace Gym.Tracker.Core.Extensions
         public static IServiceCollection AddServiceConnector(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAuthService, AuthService>();
             return services;
         }
     }

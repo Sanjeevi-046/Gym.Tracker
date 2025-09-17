@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Auth.Learn.Common.Extensions
+namespace Gym.Tracker.Common.Extensions
 {
     public static class SwaggerExtensions
     {
