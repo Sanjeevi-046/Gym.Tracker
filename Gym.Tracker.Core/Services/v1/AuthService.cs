@@ -4,13 +4,9 @@ using Gym.Tracker.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Gym.Tracker.Core.Services.v1
 {
@@ -33,6 +29,7 @@ namespace Gym.Tracker.Core.Services.v1
             return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:SecretKey"]!));
         }
 
+        // Get Auth Response
         private async Task<AuthResponse> GetAuthResponse(User user)
         {
             List<string> permissions =await (from rt in _context.RoleTypes join rp in _context.RolePermissions on rt.Id equals rp.RoleTypeId
@@ -53,7 +50,11 @@ namespace Gym.Tracker.Core.Services.v1
             };
         }
 
-        // Custom Access Token
+        /// <summary>
+        /// Generates a custom JWT access token for the specified user.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task<string> GenerateCustomAccessToken(User user)
         {
             var claims = new List<Claim>
@@ -88,7 +89,11 @@ namespace Gym.Tracker.Core.Services.v1
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        // Refresh Token as JWT
+        /// <summary>
+        /// Generates a JWT refresh token for the specified user ID.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public string GenerateRefreshToken(string userId)
         {
             var claims = new[]
@@ -111,17 +116,23 @@ namespace Gym.Tracker.Core.Services.v1
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<object> AuthenticateUser(LoginRequest loginRequest)
+        /// <summary>
+        /// Validates user credentials and generates access and refresh tokens upon successful authentication.
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException"></exception>
+        public async Task<LoginResponse> AuthenticateUser(LoginRequest loginRequest)
         {
             var userVerificationResult = await _userService.IsExistingUser(loginRequest.Email!, loginRequest.Password!);
             
             if (userVerificationResult.IsPasswordInvalid && userVerificationResult.IsExistingUser)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(_ => _.Email.Equals(loginRequest.Email));
-                return new
+                return new LoginResponse
                 {
-                    Token = await GenerateCustomAccessToken(user!),
-                    RefreshToken = GenerateRefreshToken(user!.Id.ToString())
+                    AccessToken = await GenerateCustomAccessToken(user!),
+                    RefeshToken = GenerateRefreshToken(user!.Id.ToString())
                 };
             }
             if (userVerificationResult.IsExistingUser && !userVerificationResult.IsPasswordInvalid) 

@@ -4,6 +4,6 @@ namespace Gym.Tracker.Core.Services.v1
 {
     public interface IAuthService
     {
-        Task<object> AuthenticateUser(LoginRequest loginRequest);
+        Task<LoginResponse> AuthenticateUser(LoginRequest loginRequest);
     }
 }

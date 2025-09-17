@@ -27,4 +27,11 @@ namespace Gym.Tracker.Core.ServiceModel
         [Required(ErrorMessage = RequiredErrorMessages.PasswordRequired)]
         public string? Password { get; set; }
     }
+    public class LoginResponse 
+    {
+        public string AccessToken { get; set; } = string.Empty;
+        public string RefeshToken { get; set; } = string.Empty; 
+    }
+    {
+    }
 }
