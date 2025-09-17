@@ -2,7 +2,7 @@
 using System.Text;
 using Konscious.Security.Cryptography;
 
-namespace Gym.Tracker.Security
+namespace Gym.Tracker.Core.Security
 {
     public static class PasswordHasher
     {
